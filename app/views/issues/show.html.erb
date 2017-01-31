@@ -12,22 +12,27 @@
 
 <p>
   <strong>Tracker:</strong>
-  <%= @issue.tracker_id %>
+  <%= Tracker.find(@issue.tracker_id).name %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @issue.status_id %>
+  <%= Status.find(@issue.status_id).name %>
 </p>
 
 <p>
   <strong>Priority:</strong>
-  <%= @issue.priority_id %>
+  <%= Priority.find(@issue.priority_id).name %>
 </p>
 
 <p>
   <strong>Assignee:</strong>
-  <%= @issue.assignee_id %>
+  <%= User.find(@issue.assignee_id).fullname %>
+</p>
+
+<p>
+  <strong>Created By:</strong>
+  <%= User.find(@issue.created_by).fullname %>
 </p>
 
 <%= link_to 'Edit', edit_issue_path(@issue) %> |

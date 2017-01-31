@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= f.label :assignee_id %>
-    <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname %>
+    <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname, :selected => current_user.id %>
   </div>
 
   <div class="actions">
