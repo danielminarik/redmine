@@ -3,7 +3,15 @@
 one:
   name: MyString
   description: MyText
+  tracker_id: 1
+  status_id: 1
+  priority_id: 1
+  assignee_id: 1
 
 two:
   name: MyString
   description: MyText
+  tracker_id: 1
+  status_id: 1
+  priority_id: 1
+  assignee_id: 1

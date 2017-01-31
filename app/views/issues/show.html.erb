@@ -10,5 +10,25 @@
   <%= @issue.description %>
 </p>
 
+<p>
+  <strong>Tracker:</strong>
+  <%= @issue.tracker_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @issue.status_id %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @issue.priority_id %>
+</p>
+
+<p>
+  <strong>Assignee:</strong>
+  <%= @issue.assignee_id %>
+</p>
+
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>

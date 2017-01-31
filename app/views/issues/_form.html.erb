@@ -21,6 +21,26 @@
     <%= f.text_area :description %>
   </div>
 
+  <div class="field">
+    <%= f.label :tracker_id %>
+    <%= f.collection_select :tracker_id, Tracker.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status_id %>
+    <%= f.collection_select :status_id, Status.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :priority_id %>
+    <%= f.collection_select :priority_id, Priority.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :assignee_id %>
+    <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
