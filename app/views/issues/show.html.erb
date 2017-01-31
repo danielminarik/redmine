@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Created:</strong>
+  <%= @issue.created_at.strftime('%d %B %Y %H:%M') %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @issue.name %>
 </p>
@@ -33,6 +38,11 @@
 <p>
   <strong>Created By:</strong>
   <%= User.find(@issue.created_by).fullname %>
+</p>
+
+<p>
+  <strong>Updated</strong>
+  -
 </p>
 
 <%= link_to 'Edit', edit_issue_path(@issue) %> |

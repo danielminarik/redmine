@@ -6,12 +6,12 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
       <th>Tracker</th>
       <th>Status</th>
       <th>Priority</th>
       <th>Assignee</th>
       <th>Created By</th>
+      <th>Updated</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,12 +20,12 @@
     <% @issues.each do |issue| %>
       <tr>
         <td><%= issue.name %></td>
-        <td><%= issue.description %></td>
         <td><%= Tracker.find(issue.tracker_id).name %></td>
         <td><%= Status.find(issue.status_id).name %></td>
         <td><%= Priority.find(issue.priority_id).name %></td>
         <td><%= User.find(issue.assignee_id).fullname %></td>
         <td><%= User.find(issue.created_by).fullname %></td>
+        <td>-</td>
         <td><%= link_to 'Show', issue %></td>
         <% if can? :destroy, issue %>
           <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
