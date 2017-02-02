@@ -3,8 +3,28 @@
       <div class="activity-pin">
         <div class="info">
           <%= link_to activity.owner.fullname %>
-          updated <%= activity.trackable.name %>
-          at <%= activity.trackable.created_at %>
+          updated:
+          <ul>
+              <% if activity.parameters.key?(:name) %>
+                <li>name to <strong><%= activity.parameters[:name] %></strong></li>
+              <% end %>
+              <% if activity.parameters.key?(:description) %>
+                <li>description</li>
+              <% end %>
+              <% if activity.parameters.key?(:tracker_id) %>
+                <li>tracker to <strong><%= Tracker.find(activity.parameters[:tracker_id]).name %></strong></li>
+              <% end %>
+              <% if activity.parameters.key?(:status_id) %>
+                <li>status to <strong><%= Status.find(activity.parameters[:status_id]).name %></strong></li>
+              <% end %>
+              <% if activity.parameters.key?(:priority_id) %>
+                <li>priority to <strong><%= Priority.find(activity.parameters[:priority_id]).name %></strong></li>
+              <% end %>
+              <% if activity.parameters.key?(:assignee_id) %>
+                <li>assignee to <strong><%= User.find(activity.parameters[:assignee_id]).fullname %></strong></li>
+              <% end %>
+          </ul>
+          <%= activity.trackable.created_at %>
         </div>
       </div>
     </li>

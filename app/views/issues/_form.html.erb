@@ -38,7 +38,11 @@
 
   <div class="field">
     <%= f.label :assignee_id %>
-    <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname, :selected => current_user.id %>
+    <% if @issue.new_record? %>
+      <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname, :selected => current_user.id %>
+    <% else %>
+      <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname %>
+    <% end %>
   </div>
 
   <div class="actions">

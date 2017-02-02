@@ -46,11 +46,31 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1
   # PATCH/PUT /issues/1.json
   def update
+    p = {}
+    if issue_params[:name] != @issue.name
+      p[:name] = issue_params[:name]
+    end
+    if issue_params[:description] != @issue.description
+      p[:description] = true
+    end
+    if issue_params[:tracker_id].to_i != @issue.tracker_id
+      p[:tracker_id] = issue_params[:tracker_id]
+    end
+    if issue_params[:priority_id].to_i != @issue.priority_id
+      p[:priority_id] = issue_params[:priority_id]
+    end
+    if issue_params[:status_id].to_i != @issue.status_id
+      p[:status_id] = issue_params[:status_id]
+    end
+    if issue_params[:assignee_id].to_i != @issue.assignee_id
+      p[:assignee_id] = issue_params[:assignee_id]
+    end
+
     respond_to do |format|
       if @issue.update(issue_params)
         format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
-        @issue.create_activity(:update, owner: current_user, issue_id: @issue.id)
+        @issue.create_activity(:update, owner: current_user, issue_id: @issue.id, parameters: p)
       else
         format.html { render :edit }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
