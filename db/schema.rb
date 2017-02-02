@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170202142329) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "activities", force: :cascade do |t|
     t.string   "trackable_type"
     t.integer  "trackable_id"
@@ -24,9 +27,9 @@ ActiveRecord::Schema.define(version: 20170202142329) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "issue_id"
-    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
-    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
-    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
@@ -35,8 +38,8 @@ ActiveRecord::Schema.define(version: 20170202142329) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["issue_id"], name: "index_comments_on_issue_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["issue_id"], name: "index_comments_on_issue_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "issues", force: :cascade do |t|
@@ -49,11 +52,11 @@ ActiveRecord::Schema.define(version: 20170202142329) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "created_by"
-    t.index ["assignee_id"], name: "index_issues_on_assignee_id"
-    t.index ["created_by"], name: "index_issues_on_created_by"
-    t.index ["priority_id"], name: "index_issues_on_priority_id"
-    t.index ["status_id"], name: "index_issues_on_status_id"
-    t.index ["tracker_id"], name: "index_issues_on_tracker_id"
+    t.index ["assignee_id"], name: "index_issues_on_assignee_id", using: :btree
+    t.index ["created_by"], name: "index_issues_on_created_by", using: :btree
+    t.index ["priority_id"], name: "index_issues_on_priority_id", using: :btree
+    t.index ["status_id"], name: "index_issues_on_status_id", using: :btree
+    t.index ["tracker_id"], name: "index_issues_on_tracker_id", using: :btree
   end
 
   create_table "priorities", force: :cascade do |t|
@@ -90,8 +93,8 @@ ActiveRecord::Schema.define(version: 20170202142329) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "admin",                  default: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
 end
