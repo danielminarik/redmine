@@ -24,7 +24,7 @@
                 <li>assignee to <strong><%= User.find(activity.parameters[:assignee_id]).fullname %></strong></li>
               <% end %>
           </ul>
-          <%= activity.trackable.created_at %>
+          <%= time_ago_in_words(activity.created_at) %>
         </div>
       </div>
     </li>

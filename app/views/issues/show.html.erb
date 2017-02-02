@@ -47,6 +47,10 @@
 
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>
+<% if can? :destroy, @issue %>
+  <td><%= link_to 'Remove', @issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% end %>
+
 
 <%= render_activities(@activities) %>
 
