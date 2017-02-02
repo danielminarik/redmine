@@ -2,8 +2,8 @@
     <li class="list-group-item">
       <div class="activity-pin">
         <div class="info">
-          <%= link_to activity.owner.fullname %>
-          updated:
+          <h4><%= activity.owner.fullname %>
+          updated <%= time_ago_in_words(activity.created_at) %> ago:</h4>
           <ul>
               <% if activity.parameters.key?(:name) %>
                 <li>name to <strong><%= activity.parameters[:name] %></strong></li>
@@ -24,7 +24,6 @@
                 <li>assignee to <strong><%= User.find(activity.parameters[:assignee_id]).fullname %></strong></li>
               <% end %>
           </ul>
-          <%= time_ago_in_words(activity.created_at) %>
         </div>
       </div>
     </li>

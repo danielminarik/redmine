@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all
+    @issues = Issue.all.order("created_at DESC")
   end
 
   # GET /issues/1
@@ -81,6 +81,9 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
+
+    Comment.where(issue_id: @issue.id).destroy_all
+    PublicActivity::Activity.where(issue_id: @issue.id).destroy_all
     @issue.destroy
     respond_to do |format|
       format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }

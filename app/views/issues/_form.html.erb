@@ -1,51 +1,35 @@
-<%= form_for(issue) do |f| %>
-  <% if issue.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(issue.errors.count, "error") %> prohibited this issue from being saved:</h2>
+  <div class="panel-body">
 
-      <ul>
-      <% issue.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <%= bootstrap_form_for(issue, html: { role: 'form' }) do |f| %>
+      <% if issue.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(issue.errors.count, "error") %> prohibited this issue from being saved:</h2>
+
+          <ul>
+          <% issue.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+        <%= f.text_field :name, class: 'form-control' %>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+        <%= f.text_area :description, class: 'form-control', size: "30x10" %>
 
-  <div class="field">
-    <%= f.label :tracker_id %>
-    <%= f.collection_select :tracker_id, Tracker.all, :id, :name %>
-  </div>
+        <%= f.collection_select :tracker_id, Tracker.all, :id, :name %>
 
-  <div class="field">
-    <%= f.label :status_id %>
-    <%= f.collection_select :status_id, Status.all, :id, :name %>
-  </div>
+        <%= f.collection_select :status_id, Status.all, :id, :name, class: 'form-control' %>
 
-  <div class="field">
-    <%= f.label :priority_id %>
-    <%= f.collection_select :priority_id, Priority.all, :id, :name %>
-  </div>
+        <%= f.collection_select :priority_id, Priority.all, :id, :name, class: 'form-control' %>
 
-  <div class="field">
-    <%= f.label :assignee_id %>
-    <% if @issue.new_record? %>
-      <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname, :selected => current_user.id %>
-    <% else %>
-      <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname %>
+        <% if @issue.new_record? %>
+          <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname, :selected => current_user.id, class: 'form-control' %>
+        <% else %>
+          <%= f.collection_select :assignee_id, User.all.order("last_name ASC"), :id, :fullname, class: 'form-control' %>
+        <% end %>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
     <% end %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

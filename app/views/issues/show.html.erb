@@ -1,13 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Created:</strong>
-  <%= @issue.created_at.strftime('%d %B %Y %H:%M') %>
-</p>
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4><%= t('.sign_up', default: @issue.name) %></h4>
+  </div>
+  <div class="panel-body">
 
 <p>
-  <strong>Name:</strong>
-  <%= @issue.name %>
+<div class="row">
+  <div class="col-sm-4">
+    <strong>Tracker:</strong>
+    <%= Tracker.find(@issue.tracker_id).name %>  
+  </div>
+  <div class="col-sm-4">
+    <strong>Priority:</strong>
+    <%= Priority.find(@issue.priority_id).name %>
+  </div>
+  <div class="col-sm-4">
+    <strong>Date created:</strong>
+    <%= @issue.created_at.strftime('%d %B %Y %H:%M') %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <strong>Status:</strong>
+    <%= Status.find(@issue.status_id).name %>
+  </div>
+  <div class="col-sm-4">
+    <strong>Assignee:</strong>
+    <%= User.find(@issue.assignee_id).fullname %>
+  </div>
+  <div class="col-sm-4">
+    <strong>Created By:</strong>
+    <%= User.find(@issue.created_by).fullname %>
+  </div>
+</div>
 </p>
 
 <p>
@@ -16,51 +44,31 @@
 </p>
 
 <p>
-  <strong>Tracker:</strong>
-  <%= Tracker.find(@issue.tracker_id).name %>
+<div class="row">
+  <div class="col-sm-8">
+    <div class="btn-group" role="group" aria-label="...">
+      <a href="<%= edit_issue_path(@issue) %>" class="btn btn-default">Edit</a>
+      <a href="<%= issues_path %>" class="btn btn-default">Back</a>
+    </div>
+    <% if can? :destroy, @issue %>
+      <td><%= link_to 'Remove', @issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </div>
+  <div class="col-sm-4">
+    <strong>Last updated</strong>
+    <%= time_ago_in_words(@issue.last_updated) %> ago
+  </div>
 </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= Status.find(@issue.status_id).name %>
-</p>
-
-<p>
-  <strong>Priority:</strong>
-  <%= Priority.find(@issue.priority_id).name %>
-</p>
-
-<p>
-  <strong>Assignee:</strong>
-  <%= User.find(@issue.assignee_id).fullname %>
-</p>
-
-<p>
-  <strong>Created By:</strong>
-  <%= User.find(@issue.created_by).fullname %>
-</p>
-
-<p>
-  <strong>Updated</strong>
-  <%= @issue.last_updated %>
-</p>
-
-<%= link_to 'Edit', edit_issue_path(@issue) %> |
-<%= link_to 'Back', issues_path %>
-<% if can? :destroy, @issue %>
-  <td><%= link_to 'Remove', @issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-<% end %>
-
+<br/><br/><br/>
 
 <%= render_activities(@activities) %>
 
+<br/><br/>
 
-
-<%= form_for(@comment) do |f| %>
-  <div class="field">
-    <%= f.label :message %>
-    <%= f.text_area :message %>
-  </div>
+<div style="padding: 20px">
+<%= bootstrap_form_for(@comment) do |f| %>
+  <%= f.text_area :message %>
 
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.hidden_field :issue_id, :value => @issue.id %>
@@ -69,3 +77,7 @@
     <%= f.submit %>
   </div>
 <% end %>
+</div>
+
+</div>
+</div>

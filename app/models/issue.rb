@@ -5,6 +5,7 @@ class Issue < ApplicationRecord
   has_many :comment
   include PublicActivity::Model
   belongs_to :user
+  validates :name, :tracker_id, :status_id, :priority_id, :assignee_id, presence: true
 
   def last_updated
     a = PublicActivity::Activity.where(issue_id: id).order("created_at").last
