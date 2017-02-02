@@ -11,13 +11,13 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
-    @activities = PublicActivity::Activity.all.where(trackable_id: params[:id])
+    @comment = Comment.new
+    @activities = PublicActivity::Activity.all.where(issue_id: params[:id])
   end
 
   # GET /issues/new
   def new
     @issue = Issue.new
-    @issue.create_activity(:create, owner: current_user)
   end
 
   # GET /issues/1/edit
@@ -35,6 +35,7 @@ class IssuesController < ApplicationController
       if @issue.save
         format.html { redirect_to issues_path, notice: 'Issue was successfully created.' }
         format.json { render :show, status: :created, location: @issue }
+        @issue.create_activity(:create, owner: current_user, issue_id: @issue.id)
       else
         format.html { render :new }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
@@ -45,11 +46,11 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1
   # PATCH/PUT /issues/1.json
   def update
-    @issue.create_activity(:update, owner: current_user)
     respond_to do |format|
       if @issue.update(issue_params)
         format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
+        @issue.create_activity(:update, owner: current_user, issue_id: @issue.id)
       else
         format.html { render :edit }
         format.json { render json: @issue.errors, status: :unprocessable_entity }

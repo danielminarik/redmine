@@ -1,0 +1,11 @@
+<% if activity.trackable %>
+    <li class="list-group-item">
+      <div class="activity-pin">
+        <div class="info">
+          <%= link_to activity.owner.fullname %>
+          removed <%= activity.trackable.message %>
+          at <%= activity.trackable.created_at %>
+        </div>
+      </div>
+    </li>
+<% end %>

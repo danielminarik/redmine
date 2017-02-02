@@ -48,6 +48,18 @@
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>
 
+<%= form_for(@comment) do |f| %>
+  <div class="field">
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+  </div>
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :issue_id, :value => @issue.id %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 
 <%= render_activities(@activities) %>
-

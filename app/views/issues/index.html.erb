@@ -25,7 +25,7 @@
         <td><%= Priority.find(issue.priority_id).name %></td>
         <td><%= User.find(issue.assignee_id).fullname %></td>
         <td><%= User.find(issue.created_by).fullname %></td>
-        <td>-</td>
+        <td><%= issue.last_updated %></td>
         <td><%= link_to 'Show', issue %></td>
         <% if can? :destroy, issue %>
           <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
